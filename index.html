@@ -1,0 +1,211 @@
+<html>
+	<head>
+		<title>WYGWYM</title>
+		<script type="text/javascript" src="jquery.min.js"></script>
+		<script type="text/javascript" src="jquery-ui-1.8.18.custom.min.js"></script>
+
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$('body').prepend('<div class="toolbar"></div>');
+				$('div.toolbar').prepend('<div class="phrase" onDblClick="makeEditable(this)"><label>New Phrase</label><div class="phrase">Lorem ipsum dolor sit amet consequeter apidiscing elit.</div></div>');
+				
+				$('div.phrase label').append('<a class="phrase onecol">1</a><a class="phrase twocol">2</a><br/><a class="phrase threecol">3</a><a class="phrase fourcol">4</a><a class="phrase delete">X</a>')
+				$('div.phrase a.phrase').click(function(){
+					$(this).parent().parent().attr('class',$(this).attr('class'));
+					});
+				$('div.phrase a.delete').click(function(){
+					$(this).parent().parent().remove();
+					});
+
+				$('div.toolbar > div.phrase').draggable({
+					connectToSortable: '.page',
+					helper: 'clone',
+					
+				});
+				
+				$( '.page').sortable({
+					cancel: ':input,button,div[contentEditable=true]',
+					items: 'div.phrase, p',
+
+					appendTo:'label',
+					distance: 10,
+					opacity: .7,
+					revert: true,
+					delay: 200,
+					forcePlaceholderSize:true,
+					connectWith: '.page',
+					scrolling: true
+				});
+				
+				
+				$( '.page div, .page div *').dblclick(function(){
+					makeEditable($(this).get(0));
+
+				});
+					
+				
+					
+				});
+				
+				function makeEditable(theEditableDiv){
+					
+					if ( $(theEditableDiv).is('.ui-draggable-dragging') ) {
+					  return;
+					}
+					theEditableDiv.contentEditable = "true";
+
+					$(theEditableDiv).blur(function(){
+						theEditableDiv.contentEditable = "false";
+					});
+				}
+
+		</script>
+		<style type="text/css">
+			/* apply a natural box layout model to all elements */
+			* { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+
+			body {
+				position:relative;
+				width:100%;
+				height:100%;
+				top:0;
+				left:0;
+				overflow-y:hidden;
+				overflow-x:hidden;
+				margin:0;
+				padding: 0;
+				font-family: "Helvetica Neue", helvetica, sans-serif;
+				font-size:16px;
+				font-weight: 300;
+			}
+			h1 {
+				font-size: 24px;
+				margin-bottom: 2px;
+				}
+			h2, h3 {
+				font-size: 18px;
+				margin: 0 2px;
+			}
+			.container {
+				top: 5%;
+				height:95%;
+				width:100%;
+				border-style: solid;
+				border-color: #000;
+				border-width:0px 0px 0px 0px;
+				overflow-x:scroll;
+				margin:0;
+			}
+				
+		
+			.page {
+				display:block;
+				float:left;
+				width: 100%;
+				border-bottom: 1px solid #000;
+				min-height: 100%;
+			}
+			
+			.phrase {
+				border-color: #000;
+				border-style: solid;
+				border-width: 0;
+				width:25%;
+				min-width:16em;
+				float:left;
+				padding: 4px 4px 4px 4px;
+			}
+			.phrase > .phrase {
+				border-width: 0px;
+				float:left;
+				padding: 0 0 0 10px;
+				width: 25%;
+			}
+			.phrase.twocol {
+				width:50%;
+			}
+			.phrase.threecol {
+				width: 75%;
+			}
+			.phrase.fourcol {
+				width: 100%;
+			}
+			label {
+				display:block;
+				width:100%;
+				background-color: #f7f7f8;
+				float:left;
+				font-weight: 500;
+				border-style: solid;
+				border-color: #000;
+				border-width: 1px ;
+				padding: 0 0 0 4px;
+			}
+			.toolbar {
+				position:fixed;
+				right: 5px;
+				top: 5px;
+				width: 200px;
+				background-color: #ececed;
+				border: 1px solid #000;
+			}
+			.toolbar div {
+				font-size: 4px;
+				width: 10%;
+				}
+			div.phrase a.phrase {
+				font-size: 8px;
+				float:left;
+				display: block;
+				width: auto;
+				padding: 0;
+				margin: 0px;
+				min-width: 0;
+				line-height:8px;
+			}
+			.ui-sortable-placeholder { background-color: #ececed; border: 1px dashed black; visibility: visible !important; height: 200px !important; }
+			.ui-sortable-placeholder * { visibility: hidden; }
+		</style>
+			
+	</head>
+	<body>
+		<h1>What You Get is What You Mean</h1>
+		<div class="container">
+			<div class="book">
+				<div class="page page1">
+					<div class="phrase fourcol">
+						<label>How to Sharpen Pencils</label>
+						<div class="phrase">by DAVID REES</div>
+						<div class="phrase threecol">A PRACTICAL AND THEORETICAL TREATISE ON THE ARTISANAL CRAFT OF PENCIL SHARPENING, FOR WRITERS, ARTISTS, CONTRACTORS, FLANGE TURNERS, ANGLESMITHS, AND CIVIL SERVANTS, WITH ILLUSTRATIONS SHOWING CURRENT PRACTICE</div>
+						<div class="phrase fourcol">
+							<label>Chapter 2 - Anatomy of the #2 Pencil</label>
+							<div class="phrase"><label>Disclaimer</label>It is assumed the reader is already somewhat familiar with the #2 pencil. Let the remarks below serve only 
+to further refine his or her understanding in the context 
+of best sharpening practices.</div>
+							<div class="phrase"><label>Discussion</label>
+							<p>The typical #2 pencil is made of cedar. It is 7 1/2" long, with a wooden shaft measuring 6 3/4".</p>
+							</div>
+							<div class="phrase twocol"><label>Figure 1</label>
+							<img src="figure1.png" width="100%"/>
+							</div>
+							<div class="phrase">
+							<label>Key</label>
+								<p>a. THE TIP of the pencil is the marking surface farthest from the eraser. </p>
+								<p>b. THE POINT of the pencil, for the purposes of this book, refers to the cone whose end is the pencil’s tip and whose base is the upper limit of the unshaped shaft. This means the point is composed of exposed graphite and cedar. (Conservative readers may object to this nomenclature; I trust they will become convinced of its utility as our book unfolds.)
+								<p>c. THE COLLAR TOP is the boundary between cedar and graphite.</p>
+								<p>d. THE COLLAR is that part of the point with no exposed graphite. If one thinks of the exposed graphite as a balancing visual analogue to the eraser, the collar serves as a visual analogue to the ferrule.</p>
+								<p>e. THE COLLAR BOTTOM is the boundary between the bottom of the cone and the top of the untooled shaft. (On hexagonal pencils, it is defined by scalloped edges where the shaft’s planar surfaces taper into the exposed cedar point; cylindrical pencils feature no such scalloping along the collar bottom.)</p>
+								<p>f. THE SHAFT is the wood casing surrounding the graphite core. It is also known as the body of the pencil. For #2 pencils sold in the United States, it is most often hexagonal.</p>
+								<p>g. THE FERRULE is a crimped piece of metal connecting the shaft of the pencil to the eraser.</p>
+								<p>h. THE ERASER is a mystery.</p>
+							</div>
+				</div>
+							
+				</div>			
+				</div>
+				<div class="page page2"></div>
+			</div>
+		</div>
+	</body>
+</html>
+		
